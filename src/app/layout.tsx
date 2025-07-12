@@ -1,8 +1,21 @@
-"use client";
+// "use client";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { DarkModeProvider } from "../components/DarkModeContext";
+
+// src/app/page.tsx
+export const metadata = {
+  title: "SkillSwap - Home",
+  description: "Find and swap skills with others.",
+  icons: {
+    icon: "/favicon.ico",
+    logo: "/globe.svg",
+  },
+};
+
+// ...your page code (remove "use client")
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

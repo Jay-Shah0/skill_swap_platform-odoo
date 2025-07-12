@@ -27,7 +27,6 @@ export default function SignupPage() {
 		if (res.ok) router.push("/login");
 		else alert("Signup failed");
 	};
-
 	return (
 		<div className="min-h-screen bg-gray-900 text-white flex items-center justify-center">
 			<div className="bg-gray-800 p-8 rounded shadow-lg w-full max-w-md">
@@ -95,4 +94,5 @@ export default function SignupPage() {
 			</div>
 		</div>
 	);
+
 }

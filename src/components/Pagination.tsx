@@ -1,4 +1,4 @@
-export default function Pagination({ totalPages, currentPage }: { totalPages: number; currentPage: number }) {
+export default function Pagination({ totalPages, currentPage, onPageChange }: { totalPages: number; currentPage: number; onPageChange: (page: number) => void }) {
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
   return (
     <div className="flex justify-center mt-6 gap-2">
@@ -10,6 +10,7 @@ export default function Pagination({ totalPages, currentPage }: { totalPages: nu
               ? 'bg-blue-500 text-white'
               : 'bg-gray-700 text-white dark:bg-gray-200 dark:text-gray-900'}
           `}
+          onClick={() => onPageChange(page)}
         >
           {page}
         </button>

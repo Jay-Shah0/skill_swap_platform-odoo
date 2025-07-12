@@ -34,7 +34,7 @@ export default function SignupPage() {
 			});
 
 			if (result?.ok) {
-				router.push("/profile"); // redirect to profile after login
+				router.push("/Profile"); // redirect to profile after login
 			} else {
 				alert("Login failed after signup.");
 			}

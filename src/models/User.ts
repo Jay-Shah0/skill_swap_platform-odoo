@@ -1,3 +1,4 @@
+// ✅ src/models/User.ts
 import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
@@ -7,12 +8,13 @@ const userSchema = new mongoose.Schema({
 	location: { type: String },
 	availability: { type: String, enum: ["weekends", "evenings", "anytime"] },
 	isPublic: { type: Boolean, default: true },
-	skillsOffered: { type: [String], default: [] }, // changed to array of strings
-	skillsWanted: { type: [String], default: [] }, // changed to array of strings
+	skillsOffered: { type: [String], default: [] },
+	skillsWanted: { type: [String], default: [] },
 	profilePic: {
 		type: String,
-		default: "https://i.ibb.co/8XvXt0t/default-avatar.png",
+		default: "https://www.gravatar.com/avatar/?d=mp",
 	},
+	rating: { type: Number, default: null }, // ✅ Added rating
 	createdAt: { type: Date, default: Date.now },
 });
 

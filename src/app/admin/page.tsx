@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar";
 
 export default function SwapRequestsPage() {
@@ -10,7 +10,7 @@ export default function SwapRequestsPage() {
       skillsWanted: ["Graphic Design"],
       rating: 4.5,
       status: "Pending",
-      photoUrl: "/avatar1.png",
+      photoUrl: "/avatar1.jpeg",
     },
     {
       name: "Joe Wills",
@@ -18,7 +18,7 @@ export default function SwapRequestsPage() {
       skillsWanted: ["UI Design"],
       rating: 4.0,
       status: "Accepted",
-      photoUrl: "/avatar2.png",
+      photoUrl: "/avatar1.jpeg",
     },
     {
       name: "Michell",
@@ -26,35 +26,50 @@ export default function SwapRequestsPage() {
       skillsWanted: ["Excel"],
       rating: 3.8,
       status: "Rejected",
-      photoUrl: "/avatar3.png",
+      photoUrl: "/avatar1.jpeg",
     },
   ];
 
   const [search, setSearch] = useState("");
+  const [mode, setMode] = useState(() => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("mode") || "light";
+    }
+    return "light";
+  });
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("mode", mode);
+      document.documentElement.classList.remove("dark", "light");
+      document.documentElement.classList.add(mode);
+    }
+  }, [mode]);
+
+  function handleLoginClick() {
+    // Implement login logic here
+    console.log("Login clicked");
+  }
 
   return (
-    <div>
-      <Navbar />
-      <div className="min-h-screen bg-gray-900 text-white p-6">
+    <div className={`min-h-screen ${mode} transition-colors duration-300`}>
+      <Navbar onLoginClick={handleLoginClick} mode={mode} setMode={setMode} />
+      <div className="min-h-screen bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 p-6">
         <div className="flex justify-center items-center mb-6">
-          
-
           <div className="flex justify-center items-center gap-4 mb-6">
-            <select className="bg-gray-800 text-white px-3 py-2 rounded">
+            <select className="bg-gray-800 dark:bg-gray-200 text-white dark:text-gray-900 px-3 py-2 rounded">
               <option>Availability</option>
               <option>Weekends</option>
               <option>Evenings</option>
             </select>
-
             <input
               type="text"
               placeholder="Search skills..."
-              className="flex-1 bg-gray-800 px-4 py-2 rounded"
+              className="flex-1 bg-gray-800 dark:bg-gray-200 px-4 py-2 rounded text-white dark:text-gray-900"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
-
-            <button className="bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded">
+            <button className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-400 dark:hover:bg-blue-500 px-4 py-2 rounded text-white dark:text-gray-900">
               Search
             </button>
           </div>
@@ -63,7 +78,7 @@ export default function SwapRequestsPage() {
           {dummyRequests.map((req, i) => (
             <div
               key={i}
-              className="bg-gray-800 p-4 rounded flex flex-col sm:flex-row justify-between items-start sm:items-center"
+              className="bg-gray-800 dark:bg-gray-200 p-4 rounded flex flex-col sm:flex-row justify-between items-start sm:items-center text-white dark:text-gray-900"
             >
               <div className="flex items-center gap-4 w-full">
                 <img
@@ -73,13 +88,13 @@ export default function SwapRequestsPage() {
                 />
                 <div>
                   <p className="text-lg font-semibold">{req.name}</p>
-                  <p className="text-sm text-green-400">
+                  <p className="text-sm text-green-400 dark:text-green-700">
                     Offered: {req.skillsOffered.join(", ")}
                   </p>
-                  <p className="text-sm text-blue-300">
+                  <p className="text-sm text-blue-300 dark:text-blue-700">
                     Wanted: {req.skillsWanted.join(", ")}
                   </p>
-                  <p className="text-sm text-gray-300">
+                  <p className="text-sm text-gray-300 dark:text-gray-700">
                     Rating: {req.rating}/5
                   </p>
                 </div>

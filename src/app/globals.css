@@ -1,1 +1,13 @@
 @import "tailwindcss";
+
+/* Custom dark and light mode classes for manual toggling */
+.dark {
+  --tw-bg-opacity: 1;
+  background-color: rgb(17 24 39 / var(--tw-bg-opacity)); /* bg-gray-900 */
+  color: #fff;
+}
+.light {
+  --tw-bg-opacity: 1;
+  background-color: rgb(243 244 246 / var(--tw-bg-opacity)); /* bg-gray-100 */
+  color: #111827;
+}

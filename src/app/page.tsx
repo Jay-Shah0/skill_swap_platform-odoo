@@ -266,10 +266,10 @@ export default function Home() {
 						Search
 					</button>
 				</div>
-        <button className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-400 dark:hover:bg-blue-500 px-4 py-2 rounded text-white dark:text-gray-900">
+        <button className="mb-3 bg-blue-500 hover:bg-blue-600 dark:bg-blue-400 dark:hover:bg-blue-500 px-4 py-2 rounded text-white dark:text-gray-900">
 						<a href="swap-requests">Request</a>
 				</button>
-				<div className="space-y-4">
+				<div className="space-y-6">
 					{paginatedProfiles.map((profile, idx) => (
 						<SkillCard
 							key={idx}

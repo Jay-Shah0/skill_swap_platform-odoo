@@ -7,7 +7,7 @@ export default function Navbar({ onLoginClick, mode, setMode }: { onLoginClick: 
   };
 
   return (
-    <nav className={`px-6 py-4 flex justify-between items-center ${mode === "dark" ? "bg-gray-800" : "bg-gray-200"}`}>
+    <nav className={`fixed top-0 left-0 w-full z-50 px-6 py-4 flex justify-between items-center ${mode === "dark" ? "bg-gray-800" : "bg-gray-200"}`}>
       <Link href="/">
         <div className="flex items-center gap-2">
           <img src="/globe.svg" alt="SkillSwap Logo" className="h-8 w-8" />

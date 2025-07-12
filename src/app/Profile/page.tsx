@@ -15,10 +15,7 @@ export default function UserProfile() {
       <div className="bg-gray-800 dark:bg-gray-200 p-6 rounded">
         <div className="flex justify-between">
           <div>
-            <div className="mb-4">
-              <label>Name</label>
-              <input className="block w-full bg-gray-700 dark:bg-gray-300 text-white dark:text-gray-900 p-2 rounded mt-1" />
-            </div>
+            <h2 className="text-lg font-bold mb-4">Create Your Profile</h2>
             <div className="mb-4">
               <label>Location</label>
               <input className="block w-full bg-gray-700 dark:bg-gray-300 text-white dark:text-gray-900 p-2 rounded mt-1" />

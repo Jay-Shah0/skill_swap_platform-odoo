@@ -27,9 +27,9 @@ export default function CreateSwapRequestPage() {
   };
 
   return (
-    <div className={`min-h-screen ${mode} p-6 transition-colors duration-300`}>
+    <div className={`min-h-screen ${mode} p-6 transition-colors duration-300 `}>
       <Navbar onLoginClick={handleLoginClick} mode={mode} setMode={setMode} />
-      <div className="flex flex-col items-center justify-center min-h-[80vh]">
+      <div className="flex flex-col items-center justify-center min-h-[80vh] mt-8">
         
         <form
           onSubmit={handleSubmit}

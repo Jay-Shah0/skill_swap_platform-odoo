@@ -16,7 +16,7 @@ const dummyProfiles = [
     skillsWanted: ["Graphic designer"],
     rating: 3.9,
     isPublic: true,
-    photoUrl: "/avatar1.png",
+    photoUrl: "/avatar1.jpeg",
     availability: "Weekends",
   },
   {
@@ -25,7 +25,7 @@ const dummyProfiles = [
     skillsWanted: ["Graphic designer"],
     rating: 2.5,
     isPublic: true,
-    photoUrl: "/avatar2.png",
+    photoUrl: "/avatar1.jpeg",
     availability: "Weekends",
   },
   {
@@ -34,7 +34,7 @@ const dummyProfiles = [
     skillsWanted: ["Graphic designer"],
     rating: 4.0,
     isPublic: true,
-    photoUrl: "/avatar3.png",
+    photoUrl: "/avatar1.jpeg",
     availability: "Weekends",
   },
 ];

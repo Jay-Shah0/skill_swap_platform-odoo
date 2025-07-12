@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function UserProfile() {
   return (
     <div className="min-h-screen bg-gray-900 text-white p-6">
@@ -42,7 +44,15 @@ export default function UserProfile() {
             </div>
           </div>
           <div className="text-center">
-            <div className="w-28 h-28 rounded-full bg-gray-600 mx-auto mb-2" />
+            <div className="w-28 h-28 rounded-full bg-gray-600 mx-auto mb-2">
+              <Image
+                src="/avatar1.jpeg" // Default avatar, replace with user's photo URL if available
+                alt="Profile Photo"
+                width={112}
+                height={112}
+                className="rounded-full object-cover w-28 h-28"
+              />
+            </div> 
             <button className="underline text-sm text-blue-400">Add/Edit Photo</button>
           </div>
         </div>

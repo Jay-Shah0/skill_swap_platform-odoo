@@ -31,6 +31,10 @@ export default function LoginPage() {
           <div className="text-sm text-center text-blue-400 mt-2">
             <a href="#">Forgot username/password?</a>
           </div>
+          <div className="text-sm text-center text-blue-400 mt-2">
+            Already have an account?
+            <a href="/Signup">Sign Up</a>
+          </div>
         </form>
       </div>
     </div>

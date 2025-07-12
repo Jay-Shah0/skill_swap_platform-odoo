@@ -33,7 +33,7 @@ export default function SignupPage() {
               placeholder="Re-enter your password"
             />
           </div>
-          <a href="/Profile">
+          <a href="/profile">
             <button
               type="button"
               className="w-full bg-green-500 hover:bg-green-600 dark:bg-green-400 dark:hover:bg-green-500 text-white dark:text-gray-900 py-2 rounded"
@@ -43,7 +43,7 @@ export default function SignupPage() {
           </a>
           <p className="text-sm text-center text-blue-400 dark:text-blue-600">
             Already have an account?{" "}
-            <a href="/Login" className="underline">
+            <a href="/login" className="underline">
               Login here
             </a>
           </p>

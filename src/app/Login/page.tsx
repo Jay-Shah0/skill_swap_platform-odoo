@@ -4,9 +4,7 @@ export default function LoginPage() {
       <div className="bg-gray-800 light:bg-gray-200 p-8 rounded shadow-lg w-full max-w-md">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-xl font-bold">Skill Swap Platform</h1>
-          <a href="/" className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-400 dark:hover:bg-blue-500 text-white dark:text-gray-900 px-4 py-2 rounded">
-            Home
-          </a>
+          
         </div>
         <form className="space-y-4">
           <div>
@@ -29,11 +27,11 @@ export default function LoginPage() {
             Login
           </button>
           <div className="text-sm text-center text-blue-400 dark:text-blue-600 mt-2">
-            <a href="#">Forgot username/password?</a>
+            <a href="/forget">Forgot username/password?</a>
           </div>
           <div className="text-sm text-center text-blue-400 dark:text-blue-600 mt-2">
             Already have an account?
-            <a href="/Signup">Sign Up</a>
+            <a href="/signup">Sign Up</a>
           </div>
         </form>
       </div>

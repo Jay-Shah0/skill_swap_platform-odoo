@@ -82,7 +82,9 @@ export default function SignupPage() {
 						type="submit"
 						className="w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded"
 					>
-						Continue to Profile Setup
+						<a href="/profile" className="underline">
+                            Create Profile
+                        </a>
 					</button>
 					<p className="text-sm text-center text-blue-400">
 						Already have an account?{" "}
@@ -94,5 +96,4 @@ export default function SignupPage() {
 			</div>
 		</div>
 	);
-
 }

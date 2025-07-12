@@ -5,9 +5,11 @@ export default function Pagination({ totalPages, currentPage }: { totalPages: nu
       {pages.map((page) => (
         <button
           key={page}
-          className={`px-3 py-1 rounded ${
-            page === currentPage ? "bg-blue-500 text-white" : "bg-gray-700 text-white"
-          }`}
+          className={`px-3 py-1 rounded transition-colors duration-150
+            ${page === currentPage
+              ? 'bg-blue-500 text-white'
+              : 'bg-gray-700 text-white dark:bg-gray-200 dark:text-gray-900'}
+          `}
         >
           {page}
         </button>

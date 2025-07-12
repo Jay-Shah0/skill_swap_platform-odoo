@@ -1,10 +1,10 @@
 export default function LoginPage() {
   return (
-    <div className="min-h-screen bg-gray-900 text-white flex items-center justify-center">
-      <div className="bg-gray-800 p-8 rounded shadow-lg w-full max-w-md">
+    <div className="min-h-screen dark:bg-gray-900 light:bg-gray-100 dark:text-white light:text-gray-900 flex items-center justify-center">
+      <div className="bg-gray-800 light:bg-gray-200 p-8 rounded shadow-lg w-full max-w-md">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-xl font-bold">Skill Swap Platform</h1>
-          <a href="/" className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
+          <a href="/" className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-400 dark:hover:bg-blue-500 text-white dark:text-gray-900 px-4 py-2 rounded">
             Home
           </a>
         </div>
@@ -13,7 +13,7 @@ export default function LoginPage() {
             <label>Email</label>
             <input
               type="email"
-              className="w-full px-4 py-2 rounded bg-gray-700 text-white mt-1"
+              className="w-full px-4 py-2 rounded bg-gray-700 dark:bg-gray-300 text-white dark:text-gray-900 mt-1"
               placeholder="Enter your email"
             />
           </div>
@@ -21,17 +21,17 @@ export default function LoginPage() {
             <label>Password</label>
             <input
               type="password"
-              className="w-full px-4 py-2 rounded bg-gray-700 text-white mt-1"
+              className="w-full px-4 py-2 rounded bg-gray-700 dark:bg-gray-300 text-white dark:text-gray-900 mt-1"
               placeholder="Enter your password"
             />
           </div>
-          <button className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded">
+          <button className="w-full bg-blue-500 hover:bg-blue-600 dark:bg-blue-400 dark:hover:bg-blue-500 text-white dark:text-gray-900 py-2 rounded">
             Login
           </button>
-          <div className="text-sm text-center text-blue-400 mt-2">
+          <div className="text-sm text-center text-blue-400 dark:text-blue-600 mt-2">
             <a href="#">Forgot username/password?</a>
           </div>
-          <div className="text-sm text-center text-blue-400 mt-2">
+          <div className="text-sm text-center text-blue-400 dark:text-blue-600 mt-2">
             Already have an account?
             <a href="/Signup">Sign Up</a>
           </div>

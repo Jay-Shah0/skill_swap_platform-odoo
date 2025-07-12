@@ -1,102 +1,27 @@
-// pages/index.tsx
 "use client";
-import { useEffect, useState } from "react";
 
-// components
+import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
 import Navbar from "../components/Navbar";
 import SkillCard from "../components/SkillCard";
 import Pagination from "../components/Pagination";
 import LoginModal from "../components/LoginModal";
-import { useSession } from "next-auth/react";
-
-const dummyProfiles = [
-	{
-		name: "Marc Demo",
-		skillsOffered: ["JavaScript", "Python"],
-		skillsWanted: ["Backend developer"],
-		rating: 3.9,
-		isPublic: true,
-		photoUrl: "/avatar1.jpeg",
-		availability: "Weekends",
-	},
-	{
-		name: "Michell",
-		skillsOffered: ["JavaScript"],
-		skillsWanted: ["Graphic designer"],
-		rating: 2.5,
-		isPublic: true,
-		photoUrl: "/avatar1.jpeg",
-		availability: "Weekends",
-	},
-	{
-		name: "Joe Wills",
-		skillsOffered: ["Linux"],
-		skillsWanted: ["Frontend developer"],
-		rating: 4.0,
-		isPublic: true,
-		photoUrl: "/avatar1.jpeg",
-		availability: "Weekends",
-	},
-	{
-		name: "Anna Smith",
-		skillsOffered: ["React", "Node.js"],
-		skillsWanted: ["UI/UX designer"],
-		rating: 4.5,
-		isPublic: true,
-		photoUrl: "/avatar1.jpeg",
-		availability: "Evenings",
-	},
-	{
-		name: "John Doe",
-		skillsOffered: ["C++", "Java"],
-		skillsWanted: ["Project manager"],
-		rating: 3.2,
-		isPublic: true,
-		photoUrl: "/avatar1.jpeg",
-		availability: "Weekends",
-	},
-	{
-		name: "Emily Clark",
-		skillsOffered: ["Go", "Rust"],
-		skillsWanted: ["DevOps"],
-		rating: 4.8,
-		isPublic: true,
-		photoUrl: "/avatar1.jpeg",
-		availability: "Evenings",
-	},
-	{
-		name: "Michael Lee",
-		skillsOffered: ["PHP", "Laravel"],
-		skillsWanted: ["SEO specialist"],
-		rating: 3.7,
-		isPublic: true,
-		photoUrl: "/avatar1.jpeg",
-		availability: "Weekends",
-	},
-	{
-		name: "Sara Kim",
-		skillsOffered: ["Swift", "iOS"],
-		skillsWanted: ["Android developer"],
-		rating: 4.1,
-		isPublic: true,
-		photoUrl: "/avatar1.jpeg",
-		availability: "Evenings",
-	},
-];
 
 export default function Home() {
-	const { data: session, status } = useSession();
+	const { data: session } = useSession();
 	const isLoggedIn = !!session;
+
 	const [showModal, setShowModal] = useState(false);
 	const [search, setSearch] = useState("");
+	const [availability, setAvailability] = useState("");
 	const [mode, setMode] = useState(() => {
 		if (typeof window !== "undefined") {
 			return localStorage.getItem("mode") || "light";
 		}
 		return "light";
 	});
-	const [availability, setAvailability] = useState("");
 	const [currentPage, setCurrentPage] = useState(1);
+	const [profiles, setProfiles] = useState<any[]>([]);
 	const profilesPerPage = 5;
 
 	useEffect(() => {
@@ -107,10 +32,33 @@ export default function Home() {
 		}
 	}, [mode]);
 
-	const filteredProfiles = dummyProfiles.filter(
+	useEffect(() => {
+		const fetchProfiles = async () => {
+			try {
+				const res = await fetch("/api/user/all");
+				const result = await res.json();
+
+				// Expecting { users: [...] }
+				if (Array.isArray(result.users)) {
+					setProfiles(result.users);
+				} else {
+					console.error("Unexpected API response:", result);
+					setProfiles([]);
+				}
+			} catch (err) {
+				console.error("Failed to fetch profiles", err);
+				setProfiles([]);
+			}
+		};
+
+		fetchProfiles();
+	}, []);
+
+	const filteredProfiles = profiles.filter(
 		(profile) =>
 			profile.isPublic &&
-			profile.skillsWanted.some((skill) =>
+			Array.isArray(profile.skillsWanted) &&
+			profile.skillsWanted.some((skill: string) =>
 				skill.toLowerCase().includes(search.toLowerCase())
 			) &&
 			(availability === "" || profile.availability === availability)
@@ -153,15 +101,16 @@ export default function Home() {
 							setCurrentPage(1);
 						}}
 					/>
-					<button className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-400 dark:hover:bg-blue-500 px-4 py-2 rounded text-white dark:text-gray-900">
-						Search
-					</button>
 				</div>
+
 				<div className="space-y-4">
 					{paginatedProfiles.map((profile, idx) => (
 						<SkillCard
 							key={idx}
-							profile={profile}
+							profile={{
+								...profile,
+								rating: profile.rating === null ? "-" : profile.rating,
+							}}
 							isLoggedIn={isLoggedIn}
 							onRequest={() => {
 								if (!isLoggedIn) setShowModal(true);
@@ -169,12 +118,14 @@ export default function Home() {
 						/>
 					))}
 				</div>
+
 				<Pagination
 					totalPages={totalPages}
 					currentPage={currentPage}
 					onPageChange={setCurrentPage}
 				/>
 			</div>
+
 			<LoginModal isOpen={showModal} onClose={() => setShowModal(false)} />
 		</div>
 	);

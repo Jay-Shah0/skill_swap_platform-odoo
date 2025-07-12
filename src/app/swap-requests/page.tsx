@@ -1,74 +1,107 @@
-export default function SwapRequestsPage() {
-  const dummyRequests = [
-    {
-      name: "Marc Demo",
-      skillsOffered: ["JavaScript", "Python"],
-      skillsWanted: ["Graphic Design"],
-      rating: 4.5,
-      status: "Pending",
-      photoUrl: "/avatar1.png",
-    },
-    {
-      name: "Joe Wills",
-      skillsOffered: ["Linux"],
-      skillsWanted: ["UI Design"],
-      rating: 4.0,
-      status: "Accepted",
-      photoUrl: "/avatar2.png",
-    },
-    {
-      name: "Michell",
-      skillsOffered: ["Photoshop"],
-      skillsWanted: ["Excel"],
-      rating: 3.8,
-      status: "Rejected",
-      photoUrl: "/avatar3.png",
-    },
-  ];
+"use client";
+import { useState } from "react";
+import Navbar from "../../components/Navbar";
+
+export default function CreateSwapRequestPage() {
+  // Example skills, replace with real data as needed
+  const mySkills = ["JavaScript", "Python", "Linux", "Photoshop"];
+  const theirSkills = ["Graphic Design", "UI Design", "Excel"];
+
+  const [offeredSkill, setOfferedSkill] = useState("");
+  const [wantedSkill, setWantedSkill] = useState("");
+  const [message, setMessage] = useState("");
+
+  // Add a placeholder login handler for Navbar
+  const handleLoginClick = () => {
+    // You can implement login modal logic here
+    alert("Login clicked");
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Handle form submission logic here
+    console.log(
+      `Swap request submitted!\nOffered: ${offeredSkill}\nWanted: ${wantedSkill}\nMessage: ${message}`
+    );
+  };
 
   return (
     <div className="min-h-screen bg-gray-900 text-white p-6">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">My Swap Requests</h1>
-        <a href="/" className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
-          Home
-        </a>
-      </div>
-      <div className="space-y-4">
-        {dummyRequests.map((req, i) => (
-          <div
-            key={i}
-            className="bg-gray-800 p-4 rounded flex flex-col sm:flex-row justify-between items-start sm:items-center"
-          >
-            <div className="flex items-center gap-4 w-full">
-              <img src={req.photoUrl} className="w-16 h-16 rounded-full object-cover" alt="avatar" />
-              <div>
-                <p className="text-lg font-semibold">{req.name}</p>
-                <p className="text-sm text-green-400">Offered: {req.skillsOffered.join(", ")}</p>
-                <p className="text-sm text-blue-300">Wanted: {req.skillsWanted.join(", ")}</p>
-                <p className="text-sm text-gray-300">Rating: {req.rating}/5</p>
-              </div>
-            </div>
-            <div className="mt-4 sm:mt-0 text-left sm:text-right w-full sm:w-auto">
-              <span
-                className={`inline-block px-3 py-1 rounded text-sm font-semibold mb-2 ${
-                  req.status === "Pending"
-                    ? "bg-yellow-500"
-                    : req.status === "Accepted"
-                    ? "bg-green-500"
-                    : "bg-red-500"
-                }`}
-              >
-                {req.status}
-              </span>
-              {req.status === "Pending" && (
-                <div>
-                  <button className="block text-red-400 hover:underline text-sm mt-1">Cancel</button>
-                </div>
-              )}
-            </div>
+      <Navbar onLoginClick={handleLoginClick} />
+      <div className="flex flex-col items-center justify-center min-h-[80vh]">
+        
+        <form
+          onSubmit={handleSubmit}
+          className="bg-gray-900 border-2 border-white rounded-2xl p-8 w-full max-w-md flex flex-col gap-6 shadow-lg"
+        >
+          <div>
+            <label
+              className="block mb-2 text-lg"
+              style={{ fontFamily: "cursive" }}
+            >
+              Choose one of your offered skills
+            </label>
+            <select
+              className="w-full bg-gray-800 text-white px-3 py-2 rounded-lg border-2 border-white appearance-none focus:outline-none"
+              value={offeredSkill}
+              onChange={(e) => setOfferedSkill(e.target.value)}
+              required
+            >
+              <option value="" disabled>
+                Select a skill
+              </option>
+              {mySkills.map((skill) => (
+                <option key={skill} value={skill}>
+                  {skill}
+                </option>
+              ))}
+            </select>
           </div>
-        ))}
+          <div>
+            <label
+              className="block mb-2 text-lg"
+              style={{ fontFamily: "cursive" }}
+            >
+              Choose one of their wanted skills
+            </label>
+            <select
+              className="w-full bg-gray-800 text-white px-3 py-2 rounded-lg border-2 border-white appearance-none focus:outline-none"
+              value={wantedSkill}
+              onChange={(e) => setWantedSkill(e.target.value)}
+              required
+            >
+              <option value="" disabled>
+                Select a skill
+              </option>
+              {theirSkills.map((skill) => (
+                <option key={skill} value={skill}>
+                  {skill}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label
+              className="block mb-2 text-lg"
+              style={{ fontFamily: "cursive" }}
+            >
+              Message
+            </label>
+            <textarea
+              className="w-full bg-gray-800 text-white px-3 py-2 rounded-lg border-2 border-white min-h-[100px] resize-none focus:outline-none"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              placeholder="Type your message..."
+            />
+          </div>
+          <button
+            type="submit"
+            className="mx-auto bg-blue-700 hover:bg-blue-800 text-white px-8 py-2 rounded-lg border-2 border-white text-lg"
+            style={{ fontFamily: "cursive" }}
+          >
+            Submit
+          </button>
+        </form>
       </div>
     </div>
   );

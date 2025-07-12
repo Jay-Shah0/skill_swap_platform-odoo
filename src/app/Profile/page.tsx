@@ -11,12 +11,12 @@ export default function UserProfile() {
 		isPublic: true,
 		skillsOffered: "",
 		skillsWanted: "",
-		profilePic: "",
+		profilePic: "https://cdn-icons-png.flaticon.com/512/149/149071.png", // ✅ fallback
 	});
+
 	const [loading, setLoading] = useState(false);
 	const router = useRouter();
 
-	// Load profile from localStorage
 	useEffect(() => {
 		const stored = localStorage.getItem("userProfile");
 		if (stored) {
@@ -27,7 +27,9 @@ export default function UserProfile() {
 				isPublic: parsed.isPublic ?? true,
 				skillsOffered: (parsed.skillsOffered || []).join(", "),
 				skillsWanted: (parsed.skillsWanted || []).join(", "),
-				profilePic: parsed.profilePic || "",
+				profilePic:
+					parsed.profilePic ||
+					"https://cdn-icons-png.flaticon.com/512/149/149071.png",
 			});
 		}
 	}, []);
@@ -41,6 +43,17 @@ export default function UserProfile() {
 	};
 
 	const handleSave = async () => {
+		// Validate required fields
+		if (
+			!form.location ||
+			!form.availability ||
+			!form.skillsOffered ||
+			!form.skillsWanted
+		) {
+			alert("Please fill in all required fields.");
+			return;
+		}
+
 		setLoading(true);
 		const res = await fetch("/api/user/update", {
 			method: "PATCH",
@@ -54,9 +67,10 @@ export default function UserProfile() {
 				profilePic: form.profilePic,
 			}),
 		});
+
 		if (res.ok) {
 			alert("Profile updated!");
-			router.push("/"); // ✅ Redirect on success
+			router.push("/");
 		} else {
 			alert("Failed to update");
 		}
@@ -79,49 +93,59 @@ export default function UserProfile() {
 					Home
 				</a>
 			</div>
+
 			<div className="bg-gray-800 dark:bg-gray-200 p-6 rounded">
 				<div className="flex justify-between">
 					<div className="w-full max-w-lg">
 						<h2 className="text-lg font-bold mb-4">Create Your Profile</h2>
+
 						<div className="mb-4">
-							<label>Location</label>
+							<label>Location *</label>
 							<input
 								name="location"
 								value={form.location}
 								onChange={handleChange}
 								className="block w-full bg-gray-700 dark:bg-gray-300 text-white dark:text-gray-900 p-2 rounded mt-1"
+								required
 							/>
 						</div>
+
 						<div className="mb-4">
-							<label>Skills Offered</label>
+							<label>Skills Offered *</label>
 							<input
 								name="skillsOffered"
 								value={form.skillsOffered}
 								onChange={handleChange}
 								className="block w-full bg-gray-700 dark:bg-gray-300 text-white dark:text-gray-900 p-2 rounded mt-1"
+								required
 								placeholder="e.g. Python, JavaScript"
 							/>
 						</div>
+
 						<div className="mb-4">
-							<label>Skills Wanted</label>
+							<label>Skills Wanted *</label>
 							<input
 								name="skillsWanted"
 								value={form.skillsWanted}
 								onChange={handleChange}
 								className="block w-full bg-gray-700 dark:bg-gray-300 text-white dark:text-gray-900 p-2 rounded mt-1"
-								placeholder="e.g. Designer, Photoshop"
+								required
+								placeholder="e.g. Design, Photoshop"
 							/>
 						</div>
+
 						<div className="mb-4">
-							<label>Availability</label>
+							<label>Availability *</label>
 							<input
 								name="availability"
 								value={form.availability}
 								onChange={handleChange}
 								className="block w-full bg-gray-700 dark:bg-gray-300 text-white dark:text-gray-900 p-2 rounded mt-1"
+								required
 								placeholder="e.g. Weekends"
 							/>
 						</div>
+
 						<div className="mb-4">
 							<label>Profile Visibility</label>
 							<select
@@ -140,10 +164,14 @@ export default function UserProfile() {
 							</select>
 						</div>
 					</div>
+
 					<div className="text-center">
 						<div className="w-28 h-28 rounded-full bg-gray-600 dark:bg-gray-400 mx-auto mb-2 overflow-hidden">
 							<Image
-								src={`/avatar1.jpeg`}
+								src={
+									form.profilePic ||
+									"https://cdn-icons-png.flaticon.com/512/149/149071.png"
+								}
 								alt="Profile Photo"
 								width={112}
 								height={112}
@@ -152,6 +180,7 @@ export default function UserProfile() {
 						</div>
 					</div>
 				</div>
+
 				<div className="mt-6 flex gap-4">
 					<button
 						onClick={handleSave}

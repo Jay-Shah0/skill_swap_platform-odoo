@@ -3,8 +3,8 @@ import mongoose from 'mongoose';
 const swapRequestSchema = new mongoose.Schema({
   requester: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   receiver: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-  offeredSkill: { type: mongoose.Schema.Types.ObjectId, ref: 'Skill', required: true },
-  wantedSkill: { type: mongoose.Schema.Types.ObjectId, ref: 'Skill', required: true },
+  offeredSkill: { type: String, required: true },
+  wantedSkill: { type: String, required: true },
   message: { type: String },
   status: {
     type: String,

@@ -12,9 +12,9 @@ const userSchema = new mongoose.Schema({
 	skillsWanted: { type: [String], default: [] },
 	profilePic: {
 		type: String,
-		default: "https://www.gravatar.com/avatar/?d=mp",
+		default: "https://cdn-icons-png.flaticon.com/512/149/149071.png", // ✅ Changed default
 	},
-	rating: { type: Number, default: null }, // ✅ Added rating
+	rating: { type: Number, default: null },
 	createdAt: { type: Date, default: Date.now },
 });
 

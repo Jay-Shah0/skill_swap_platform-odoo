@@ -38,9 +38,14 @@ export default function Home() {
 				const res = await fetch("/api/user/all");
 				const result = await res.json();
 
-				// Expecting { users: [...] }
 				if (Array.isArray(result.users)) {
-					setProfiles(result.users);
+					const filtered = session?.user?.email
+						? result.users.filter(
+								(user: any) => user.email !== session.user.email
+						  )
+						: result.users;
+
+					setProfiles(filtered);
 				} else {
 					console.error("Unexpected API response:", result);
 					setProfiles([]);
@@ -52,7 +57,7 @@ export default function Home() {
 		};
 
 		fetchProfiles();
-	}, []);
+	}, [session]);
 
 	const filteredProfiles = profiles.filter(
 		(profile) =>
@@ -113,7 +118,9 @@ export default function Home() {
 							}}
 							isLoggedIn={isLoggedIn}
 							onRequest={() => {
-								if (!isLoggedIn) setShowModal(true);
+								window.location.href = `/swap-requests?email=${encodeURIComponent(
+									profile.email
+								)}`;
 							}}
 						/>
 					))}

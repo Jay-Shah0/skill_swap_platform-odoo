@@ -4,6 +4,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { DarkModeProvider } from "../components/DarkModeContext";
 
+import { Providers } from "./providers";
+
 // src/app/page.tsx
 export const metadata = {
   title: "SkillSwap - Home",
@@ -38,12 +40,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <DarkModeProvider>{children}</DarkModeProvider>
-      </body>
-    </html>
-  );
+		<html lang="en" className="dark">
+			<body
+				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+			>
+				<Providers>
+					<DarkModeProvider>{children}</DarkModeProvider>
+				</Providers>
+			</body>
+		</html>
+	);
 }

@@ -10,12 +10,13 @@ const handler = NextAuth({
 		CredentialsProvider({
 			name: "Credentials",
 			credentials: {
-				email: { label: "Email", type: "email" },
-				password: { label: "Password", type: "password" },
+				email: {},
+				password: {},
 			},
 			async authorize(credentials) {
 				await connectDB();
 				const user = await User.findOne({ email: credentials?.email });
+
 				if (!user) return null;
 
 				const isValid = await bcrypt.compare(
@@ -24,11 +25,7 @@ const handler = NextAuth({
 				);
 				if (!isValid) return null;
 
-				return {
-					id: user._id.toString(),
-					email: user.email,
-					name: user.name,
-				};
+				return { id: user._id.toString(), email: user.email, name: user.name };
 			},
 		}),
 	],
@@ -40,13 +37,17 @@ const handler = NextAuth({
 			if (user) {
 				token.id = user.id ?? "";
 				token.email = user.email ?? "";
+				token.name = user.name ?? "";
 			}
 			return token;
 		},
 		async session({ session, token }) {
-			if (token && session.user) {
-				session.user.id = token.id as string;
-				session.user.email = token.email as string;
+			if (token) {
+				session.user = {
+					id: token.id as string,
+					email: token.email as string,
+					name: token.name as string,
+				};
 			}
 			return session;
 		},

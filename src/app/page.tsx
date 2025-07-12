@@ -7,6 +7,7 @@ import Navbar from "../components/Navbar";
 import SkillCard from "../components/SkillCard";
 import Pagination from "../components/Pagination";
 import LoginModal from "../components/LoginModal";
+import { useSession } from "next-auth/react";
 
 const dummyProfiles = [
 	{
@@ -84,7 +85,8 @@ const dummyProfiles = [
 ];
 
 export default function Home() {
-	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	const { data: session, status } = useSession();
+	const isLoggedIn = !!session;
 	const [showModal, setShowModal] = useState(false);
 	const [search, setSearch] = useState("");
 	const [mode, setMode] = useState(() => {

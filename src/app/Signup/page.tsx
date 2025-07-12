@@ -25,17 +25,24 @@ export default function SignupPage() {
 			body: JSON.stringify({ name, email, password }),
 		});
 
-		if (res.ok){
-			// auto-login after signup
-			await signIn("credentials", {
+		if (res.ok) {
+			// Auto-login after signup
+			const result = await signIn("credentials", {
 				email,
 				password,
 				redirect: false,
 			});
-			router.push("/");
+
+			if (result?.ok) {
+				router.push("/profile"); // redirect to profile after login
+			} else {
+				alert("Login failed after signup.");
+			}
+		} else {
+			alert("Signup failed");
 		}
-		else alert("Signup failed");
 	};
+
 	return (
 		<div className="min-h-screen bg-gray-900 text-white flex items-center justify-center">
 			<div className="bg-gray-800 p-8 rounded shadow-lg w-full max-w-md">
@@ -91,9 +98,7 @@ export default function SignupPage() {
 						type="submit"
 						className="w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded"
 					>
-						<a href="/profile" className="underline">
-                            Create Profile
-                        </a>
+						Create Profile
 					</button>
 					<p className="text-sm text-center text-blue-400">
 						Already have an account?{" "}

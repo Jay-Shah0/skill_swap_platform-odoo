@@ -7,11 +7,11 @@ const userSchema = new mongoose.Schema({
 	location: { type: String },
 	availability: { type: String, enum: ["weekends", "evenings", "anytime"] },
 	isPublic: { type: Boolean, default: true },
-	skillsOffered: [{ type: mongoose.Schema.Types.ObjectId, ref: "Skill" }],
-	skillsWanted: [{ type: mongoose.Schema.Types.ObjectId, ref: "Skill" }],
+	skillsOffered: { type: [String], default: [] }, // changed to array of strings
+	skillsWanted: { type: [String], default: [] }, // changed to array of strings
 	profilePic: {
 		type: String,
-		default: "https://i.ibb.co/8XvXt0t/default-avatar.png", // Replace with your hosted image
+		default: "https://i.ibb.co/8XvXt0t/default-avatar.png",
 	},
 	createdAt: { type: Date, default: Date.now },
 });

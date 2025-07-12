@@ -27,12 +27,7 @@ export default function LoginPage() {
 			<div className="bg-gray-800 p-8 rounded shadow-lg w-full max-w-md">
 				<div className="flex justify-between items-center mb-6">
 					<h1 className="text-xl font-bold">Skill Swap Platform</h1>
-					<a
-						href="/"
-						className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
-					>
-						Home
-					</a>
+					
 				</div>
 				<form onSubmit={handleSubmit} className="space-y-4">
 					<div>
@@ -64,7 +59,7 @@ export default function LoginPage() {
 						Login
 					</button>
 					<div className="text-sm text-center text-blue-400 mt-2">
-						<a href="#">Forgot username/password?</a>
+						<a href="forget">Forgot username/password?</a>
 					</div>
 					<div className="text-sm text-center text-blue-400 mt-2">
 						Don't have an account?{" "}
